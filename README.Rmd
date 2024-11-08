@@ -26,7 +26,7 @@ library(testthat)
 
 ```{r}
 # install.packages("devtools")
-devtools::install_github("maddyriddler/assignment-b2-maddyriddler", build_vignettes = FALSE, ref = "0.1.1")
+devtools::install_github("stat545ubc-2024/quickstats")
 ```
 
 ## Usage
@@ -37,11 +37,8 @@ devtools::install_github("maddyriddler/assignment-b2-maddyriddler", build_vignet
 library(quickstats)
 
 # Calculate all statistics for mtcars dataset
-quick_stats(mtcars)
-
-# Calculate only mean and median, return as list
-quick_stats(mtcars, stats = c("mean", "median"), as_list = TRUE)
+quickstats(mtcars)
 
 # Handle dataset with no numeric columns
-quick_stats(data.frame(a = c("x", "y", "z"), b = c("a", "b", "c")))
+quickstats(data.frame(a = c("x", "y", "z"), b = c("a", "b", "c")))
 ```
