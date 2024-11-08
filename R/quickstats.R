@@ -25,7 +25,7 @@
 #' @importFrom magrittr %>%
 #' @importFrom rlang .data
 #' @export
-quickstats <- function(data, na.rm = TRUE, stats = c("mean", "sd", "median", "mode", "range"), as_list = FALSE) {
+quickstats <- function(data, na.rm = TRUE) {
   if (!is.data.frame(data)) {
     stop("Input must be a data frame or tibble.", call. = FALSE)
   }
@@ -69,14 +69,6 @@ quickstats <- function(data, na.rm = TRUE, stats = c("mean", "sd", "median", "mo
     message("An error occurred: ", e$message)
     return(NULL)
   })
-
-  if (as_list && !is.null(result)) {
-    result <- split(result, result$variable)
-    result <- lapply(result, function(x) {
-      x$variable <- NULL
-      as.list(x)
-    })
-  }
 
   return(result)
 }
