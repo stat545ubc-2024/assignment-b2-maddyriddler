@@ -14,18 +14,18 @@
 #'
 #' @examples
 #' # Calculate all statistics for mtcars dataset
-#' quick_stats(mtcars)
+#' quickstats(mtcars)
 #'
 #' # Calculate only mean and median, return as list
-#' quick_stats(mtcars, stats = c("mean", "median"), as_list = TRUE)
+#' quickstats(mtcars, stats = c("mean", "median"), as_list = TRUE)
 #'
 #' # Handle dataset with no numeric columns
-#' quick_stats(data.frame(a = c("x", "y", "z"), b = c("a", "b", "c")))
+#' quickstats(data.frame(a = c("x", "y", "z"), b = c("a", "b", "c")))
 #'
 #' @importFrom magrittr %>%
 #' @importFrom rlang .data
 #' @export
-quick_stats <- function(data, na.rm = TRUE, stats = c("mean", "sd", "median", "mode", "range"), as_list = FALSE) {
+quickstats <- function(data, na.rm = TRUE, stats = c("mean", "sd", "median", "mode", "range"), as_list = FALSE) {
   if (!is.data.frame(data)) {
     stop("Input must be a data frame or tibble.", call. = FALSE)
   }
