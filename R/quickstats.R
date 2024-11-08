@@ -23,50 +23,32 @@
 #' @importFrom magrittr %>%
 #' @importFrom rlang .data
 #' @export
-quickstats <- function(data, na.rm = TRUE, stats = c("mean", "sd", "median", "mode", "range")) {
+quickstats <- function(data, na.rm = TRUE) {
   if (!is.data.frame(data)) {
-    stop("Input must be a data frame or tibble.", call. = FALSE)
+    stop("Input must be a data frame.")
   }
 
-  if (!is.logical(na.rm)) {
-    stop("na.rm must be a logical value (TRUE or FALSE).", call. = FALSE)
-  }
-
-  valid_stats <- c("mean", "sd", "median", "mode", "range")
-  stats <- match.arg(stats, valid_stats, several.ok = TRUE)
-
-  numeric_data <- data %>% dplyr::select(dplyr::where(is.numeric))
+  numeric_data <- data %>% select(where(is.numeric))
 
   if (ncol(numeric_data) == 0) {
-    message("No numeric columns found in the input data frame.")
+    message("No numeric columns found")
     return(NULL)
   }
 
-  stat_functions <- list(
-    mean = ~mean(., na.rm = na.rm),
-    sd = ~stats::sd(., na.rm = na.rm),
-    median = ~stats::median(., na.rm = na.rm),
-    mode = ~{
-      tbl <- table(., useNA = "no")
-      max_freq <- max(tbl)
-      as.numeric(names(tbl[tbl == max_freq]))
-    },
-    range = ~diff(range(., na.rm = na.rm))
-  )
-
-  result <- tryCatch({
-    numeric_data %>%
-      dplyr::summarise(dplyr::across(dplyr::everything(),
-                                     stat_functions[stats]
-      )) %>%
-      tidyr::pivot_longer(cols = dplyr::everything(),
-                          names_to = c("variable", ".value"),
-                          names_pattern = "(.*)_(.*)") %>%
-      dplyr::select(variable, dplyr::everything())
-  }, error = function(e) {
-    message("An error occurred: ", e$message)
-    return(NULL)
-  })
+  result <- numeric_data %>%
+    summarise(across(everything(),
+                     list(
+                       mean = ~mean(., na.rm = TRUE),
+                       sd = ~sd(., na.rm = TRUE),
+                       median = ~median(., na.rm = TRUE),
+                       mode = ~as.numeric(names(which.max(table(., useNA = "no")))),
+                       range = ~diff(range(., na.rm = TRUE))
+                     )
+    )) %>%
+    pivot_longer(cols = everything(),
+                 names_to = c("variable", ".value"),
+                 names_pattern = "(.*)_(.*)") %>%
+    select(variable, everything())
 
   return(result)
 }

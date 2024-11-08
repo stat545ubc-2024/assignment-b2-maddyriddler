@@ -4,11 +4,7 @@
 \alias{quickstats}
 \title{Calculate quick statistics for numeric columns in a data frame}
 \usage{
-quickstats(
-  data,
-  na.rm = TRUE,
-  stats = c("mean", "sd", "median", "mode", "range")
-)
+quickstats(data, na.rm = TRUE)
 }
 \arguments{
 \item{data}{A data frame or tibble containing numeric columns.}
