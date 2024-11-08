@@ -1,4 +1,4 @@
-Package: quickstats
+Package: quick_stats
 Type: Package
 Title: Quick Summary Statistics for Data Frames
 Version: 0.1.1
