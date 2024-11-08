@@ -8,7 +8,7 @@ Description: Provides tools for quickly calculating useful summary statistics
     variables in a data frame. The package includes functions for handling 
     missing values and generating comprehensive statistical summaries, 
     with options for customizing output formats.
-License: MIT
+License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 Imports:

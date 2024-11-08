@@ -7,12 +7,9 @@
 quickstats(data, na.rm = TRUE)
 }
 \arguments{
-\item{data}{A data frame or tibble containing numeric columns.}
+\item{data}{A data frame containing numeric columns.}
 
 \item{na.rm}{Logical. If TRUE, NA values are removed before calculations. Default is TRUE.}
-
-\item{stats}{A character vector specifying which statistics to calculate.
-Options are "mean", "sd", "median", "mode", and "range". Default is all.}
 }
 \value{
 A tibble with statistics for each numeric column. If no numeric columns are found, returns NULL.
@@ -22,11 +19,8 @@ This function calculates basic statistics (mean, standard deviation, median, mod
 for all numeric columns in a given data frame.
 }
 \examples{
-# Calculate all statistics for mtcars dataset
+# Calculate statistics for mtcars dataset
 quickstats(mtcars)
-
-# Calculate only mean and median
-quickstats(mtcars, stats = c("mean", "median"))
 
 # Handle dataset with no numeric columns
 quickstats(data.frame(a = c("x", "y", "z"), b = c("a", "b", "c")))

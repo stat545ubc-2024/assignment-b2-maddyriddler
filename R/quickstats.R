@@ -3,25 +3,21 @@
 #' @description This function calculates basic statistics (mean, standard deviation, median, mode, and range)
 #' for all numeric columns in a given data frame.
 #'
-#' @param data A data frame or tibble containing numeric columns.
+#' @param data A data frame containing numeric columns.
 #' @param na.rm Logical. If TRUE, NA values are removed before calculations. Default is TRUE.
-#' @param stats A character vector specifying which statistics to calculate.
-#'   Options are "mean", "sd", "median", "mode", and "range". Default is all.
 #'
 #' @return A tibble with statistics for each numeric column. If no numeric columns are found, returns NULL.
 #'
 #' @examples
-#' # Calculate all statistics for mtcars dataset
+#' # Calculate statistics for mtcars dataset
 #' quickstats(mtcars)
-#'
-#' # Calculate only mean and median
-#' quickstats(mtcars, stats = c("mean", "median"))
 #'
 #' # Handle dataset with no numeric columns
 #' quickstats(data.frame(a = c("x", "y", "z"), b = c("a", "b", "c")))
 #'
-#' @importFrom magrittr %>%
-#' @importFrom rlang .data
+#' @importFrom dplyr select where summarise across everything
+#' @importFrom tidyr pivot_longer
+#' @importFrom stats sd median
 #' @export
 quickstats <- function(data, na.rm = TRUE) {
   if (!is.data.frame(data)) {
