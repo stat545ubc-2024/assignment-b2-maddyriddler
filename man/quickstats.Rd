@@ -4,7 +4,11 @@
 \alias{quickstats}
 \title{Calculate quick statistics for numeric columns in a data frame}
 \usage{
-quickstats(data, na.rm = TRUE)
+quickstats(
+  data,
+  na.rm = TRUE,
+  stats = c("mean", "sd", "median", "mode", "range")
+)
 }
 \arguments{
 \item{data}{A data frame or tibble containing numeric columns.}
@@ -13,23 +17,20 @@ quickstats(data, na.rm = TRUE)
 
 \item{stats}{A character vector specifying which statistics to calculate.
 Options are "mean", "sd", "median", "mode", and "range". Default is all.}
-
-\item{as_list}{Logical. If TRUE, returns results as a list instead of a tibble. Default is FALSE.}
 }
 \value{
-A tibble or list with statistics for each numeric column. If no numeric columns are found, returns NULL.
+A tibble with statistics for each numeric column. If no numeric columns are found, returns NULL.
 }
 \description{
 This function calculates basic statistics (mean, standard deviation, median, mode, and range)
-for all numeric columns in a given data frame. It allows for customization of which statistics to calculate
-and provides options for handling missing values and output format.
+for all numeric columns in a given data frame.
 }
 \examples{
 # Calculate all statistics for mtcars dataset
 quickstats(mtcars)
 
-# Calculate only mean and median, return as list
-quickstats(mtcars, stats = c("mean", "median"), as_list = TRUE)
+# Calculate only mean and median
+quickstats(mtcars, stats = c("mean", "median"))
 
 # Handle dataset with no numeric columns
 quickstats(data.frame(a = c("x", "y", "z"), b = c("a", "b", "c")))
