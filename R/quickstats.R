@@ -24,6 +24,7 @@
 #'
 #' @importFrom magrittr %>%
 #' @importFrom rlang .data
+#' @import stats
 #' @export
 quickstats <- function(data, na.rm = TRUE) {
   if (!is.data.frame(data)) {
