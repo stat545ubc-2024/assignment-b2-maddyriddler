@@ -1,0 +1,47 @@
+---
+output: 
+  github_document:
+    toc: true
+  
+title: "Quick Summary Statistics for Data Frames Package"
+author: "Maddy Riddler"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(dplyr)
+library(devtools)
+library(magrittr)
+library(rlang)
+library(tidyverse)
+library(roxygen2)
+library(testthat)
+```
+
+# quickstats
+
+## Description
+
+> The quickstats package provides tools for quickly calculating useful summary statistics for all numeric variables in a data frame. It includes functions for handling missing values and generating comprehensive statistical summaries. The main function, quick_stats(), allows users to calculate various statistics such as mean, standard deviation, median, mode, and range for numeric columns in a given data frame. Installation You can install the development version of quickstats from GitHub with:
+
+```{r}
+# install.packages("devtools")
+devtools::install_github("maddyriddler/assignment-b2-maddyriddler", build_vignettes = FALSE, ref = "0.1.1")
+```
+
+## Usage
+
+> Here are some examples of how to use the quick_stats() function:
+
+```{r}
+library(quickstats)
+
+# Calculate all statistics for mtcars dataset
+quick_stats(mtcars)
+
+# Calculate only mean and median, return as list
+quick_stats(mtcars, stats = c("mean", "median"), as_list = TRUE)
+
+# Handle dataset with no numeric columns
+quick_stats(data.frame(a = c("x", "y", "z"), b = c("a", "b", "c")))
+```

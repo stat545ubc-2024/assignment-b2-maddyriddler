@@ -1,0 +1,19 @@
+Package: quickstats
+Type: Package
+Title: Quick Summary Statistics for Data Frames
+Version: 0.1.1
+Authors@R: person("Maddy", "Riddler", email = "mriddler@student.ubc.ca", role = c("aut", "cre"))
+Description: Provides tools for quickly calculating useful summary statistics 
+    (such as mean, median, mode, standard deviation, and range) for all numeric 
+    variables in a data frame. The package includes functions for handling 
+    missing values and generating comprehensive statistical summaries, 
+    with options for customizing output formats.
+License: MIT
+Encoding: UTF-8
+LazyData: true
+Imports:
+    dplyr,
+    tidyr,
+    rlang,
+    magrittr
+RoxygenNote: 7.3.2
