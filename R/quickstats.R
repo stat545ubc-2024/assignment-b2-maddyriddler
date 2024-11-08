@@ -15,9 +15,11 @@
 #' # Handle dataset with no numeric columns
 #' quickstats(data.frame(a = c("x", "y", "z"), b = c("a", "b", "c")))
 #'
-#' @importFrom dplyr select where summarise across everything
-#' @importFrom tidyr pivot_longer
+#' @import dplyr
+#' @import tidyr
 #' @importFrom stats sd median
+#' @importFrom magrittr %>%
+#' @importFrom rlang .data
 #' @export
 quickstats <- function(data, na.rm = TRUE) {
   if (!is.data.frame(data)) {
@@ -34,17 +36,17 @@ quickstats <- function(data, na.rm = TRUE) {
   result <- numeric_data %>%
     summarise(across(everything(),
                      list(
-                       mean = ~mean(., na.rm = TRUE),
-                       sd = ~sd(., na.rm = TRUE),
-                       median = ~median(., na.rm = TRUE),
+                       mean = ~mean(., na.rm = na.rm),
+                       sd = ~sd(., na.rm = na.rm),
+                       median = ~median(., na.rm = na.rm),
                        mode = ~as.numeric(names(which.max(table(., useNA = "no")))),
-                       range = ~diff(range(., na.rm = TRUE))
+                       range = ~diff(range(., na.rm = na.rm))
                      )
     )) %>%
     pivot_longer(cols = everything(),
                  names_to = c("variable", ".value"),
                  names_pattern = "(.*)_(.*)") %>%
-    select(variable, everything())
+    select(.data$variable, everything())
 
   return(result)
 }

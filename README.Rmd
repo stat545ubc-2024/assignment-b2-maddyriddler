@@ -42,3 +42,41 @@ quickstats(mtcars)
 # Handle dataset with no numeric columns
 quickstats(data.frame(a = c("x", "y", "z"), b = c("a", "b", "c")))
 ```
+
+## Tests
+
+### NA vectors
+
+```{r}
+test_that("quick_stats handles vectors with NA values correctly", {
+  test_data <- data.frame(x = c(1, 2, NA, 4, 5))
+  result <- quickstats(test_data)
+  expect_s3_class(result, "tbl_df")
+  expect_equal(result$mean, 3)
+  expect_equal(result$sd, sd(c(1, 2, 4, 5), na.rm = TRUE))
+  expect_equal(result$median, 3)})
+```
+
+### Non-numeric vectors
+
+```{r}
+test_that("quick_stats handles non-numeric data correctly", {
+  test_data <- data.frame(x = c("a", "b", "c", "d", "e"))
+  expect_message(result <- quickstats(test_data), "No numeric columns found")
+  expect_null(result)
+  test_data_factor <- data.frame(x = factor(c("low", "medium", "high", "low", "high")))
+  expect_message(result_factor <- quickstats(test_data_factor), "No numeric columns found")
+  expect_null(result_factor)})
+```
+
+### No NA vectors
+
+```{r}
+test_that("quick_stats handles data with no NA values correctly", {
+  test_data <- data.frame(x = 1:5, y = 6:10)
+  result <- quickstats(test_data)
+  expect_no_error(quickstats(test_data))
+  expect_equal(nrow(result), ncol(test_data))
+ expect_equal(result$variable, c("x", "y"))})
+```
+
