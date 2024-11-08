@@ -15,8 +15,7 @@ quickstats(data, na.rm = TRUE)
 A tibble with statistics for each numeric column. If no numeric columns are found, returns NULL.
 }
 \description{
-This function calculates basic statistics (mean, standard deviation, median, mode, and range)
-for all numeric columns in a given data frame.
+Calculate quick statistics for numeric columns in a data frame
 }
 \examples{
 # Calculate statistics for mtcars dataset
