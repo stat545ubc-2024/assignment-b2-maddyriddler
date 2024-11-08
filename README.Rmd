@@ -8,13 +8,6 @@ author: "Maddy Riddler"
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-library(dplyr)
-library(devtools)
-library(magrittr)
-library(rlang)
-library(tidyverse)
-library(roxygen2)
 library(testthat)
 ```
 
@@ -22,7 +15,7 @@ library(testthat)
 
 ## Description
 
-> The quickstats package provides tools for quickly calculating useful summary statistics for all numeric variables in a data frame. It includes functions for handling missing values and generating comprehensive statistical summaries. The main function, quick_stats(), allows users to calculate various statistics such as mean, standard deviation, median, mode, and range for numeric columns in a given data frame. Installation You can install the development version of quickstats from GitHub with:
+> The quickstats package provides tools for quickly calculating useful summary statistics for all numeric variables in a data frame. It includes functions for handling missing values and generating comprehensive statistical summaries. The main function, quickstats(), allows users to calculate various statistics such as mean, standard deviation, median, mode, and range for numeric columns in a given data frame. Installation You can install the development version of quickstats from GitHub with:
 
 ```{r}
 # install.packages("devtools")
@@ -48,7 +41,7 @@ quickstats(data.frame(a = c("x", "y", "z"), b = c("a", "b", "c")))
 ### NA vectors
 
 ```{r}
-test_that("quick_stats handles vectors with NA values correctly", {
+test_that("quickstats handles vectors with NA values correctly", {
   test_data <- data.frame(x = c(1, 2, NA, 4, 5))
   result <- quickstats(test_data)
   expect_s3_class(result, "tbl_df")
@@ -60,7 +53,7 @@ test_that("quick_stats handles vectors with NA values correctly", {
 ### Non-numeric vectors
 
 ```{r}
-test_that("quick_stats handles non-numeric data correctly", {
+test_that("quickstats handles non-numeric data correctly", {
   test_data <- data.frame(x = c("a", "b", "c", "d", "e"))
   expect_message(result <- quickstats(test_data), "No numeric columns found")
   expect_null(result)
@@ -72,11 +65,10 @@ test_that("quick_stats handles non-numeric data correctly", {
 ### No NA vectors
 
 ```{r}
-test_that("quick_stats handles data with no NA values correctly", {
+test_that("quickstats handles data with no NA values correctly", {
   test_data <- data.frame(x = 1:5, y = 6:10)
   result <- quickstats(test_data)
   expect_no_error(quickstats(test_data))
   expect_equal(nrow(result), ncol(test_data))
  expect_equal(result$variable, c("x", "y"))})
 ```
-
