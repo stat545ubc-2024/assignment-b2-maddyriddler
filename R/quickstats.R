@@ -37,7 +37,7 @@ quickstats <- function(data, na.rm = TRUE, stats = c("mean", "sd", "median", "mo
   valid_stats <- c("mean", "sd", "median", "mode", "range")
   stats <- match.arg(stats, valid_stats, several.ok = TRUE)
 
-  numeric_data <- data %>% dplyr::select(dplyr::where(is.numeric))
+  numeric_data <- data %>% dplyr::select(where(is.numeric))
 
   if (ncol(numeric_data) == 0) {
     message("No numeric columns found in the input data frame.")
@@ -64,7 +64,7 @@ quickstats <- function(data, na.rm = TRUE, stats = c("mean", "sd", "median", "mo
       tidyr::pivot_longer(cols = dplyr::everything(),
                           names_to = c("variable", ".value"),
                           names_pattern = "(.*)_(.*)") %>%
-      dplyr::select(.data$variable, dplyr::everything())
+      dplyr::select(dplyr::all_of("variable"), dplyr::everything())
   }, error = function(e) {
     message("An error occurred: ", e$message)
     return(NULL)
@@ -80,4 +80,3 @@ quickstats <- function(data, na.rm = TRUE, stats = c("mean", "sd", "median", "mo
 
   return(result)
 }
-
